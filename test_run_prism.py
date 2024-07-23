@@ -17,4 +17,24 @@ def run_prism(model, properties, constants):
     command = f"prism {prism_model_file} {properties_file} -sim -const {constants}"
     returned_value = os.popen(command).read()
     
-    return returned_value
+    return format_prism_output(returned_value)
+
+def format_prism_output(output):
+    result = {}
+    lines = output.split('\n')
+    result['header'] = lines[0]
+    result['version'] = lines[1]
+    result['date'] = lines[2]
+    result['hostname'] = lines[3]
+    result['memory_limits'] = lines[4]
+    result['command_line'] = lines[5]
+    
+    parsing_model_index = output.index("Parsing model file")
+    result['model_file'] = output[parsing_model_index:parsing_model_index + 100]  # ajuste o comprimento conforme necessário
+
+    parsing_properties_index = output.index("Parsing properties file")
+    result['properties_file'] = output[parsing_properties_index:parsing_properties_index + 100]  # ajuste o comprimento conforme necessário
+
+    result['simulation'] = output[output.index("Simulating"):]
+
+    return result
