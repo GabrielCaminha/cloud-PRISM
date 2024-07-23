@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Checker</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h1>Model Checker</h1>
+    <form id="modelForm">
+        <label for="model">Model:</label><br>
+        <textarea id="model" name="model" rows="10" cols="50"></textarea><br>
+        
+        <label for="properties">Properties:</label><br>
+        <textarea id="properties" name="properties" rows="5" cols="50"></textarea><br>
+        
+        <label for="constants">Constants:</label><br>
+        <textarea id="constants" name="constants" rows="2" cols="50"></textarea><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
