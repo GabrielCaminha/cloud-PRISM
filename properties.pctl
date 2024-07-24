@@ -1,1 +1,4 @@
-const int x; P=? [ F s=7 & d=x ]
+Propriedades aqui. Ex:
+        const int x;
+        P=? [ F s=7 & d=x ]
+    
