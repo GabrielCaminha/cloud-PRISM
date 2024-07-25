@@ -13,5 +13,6 @@ editorterminal.setTheme("ace/theme/terminal");
 editorterminal.session.setMode("ace/mode/text");
 editorterminal.setOption("showPrintMargin", false);
 editorterminal.setOption("showLineNumbers", false);
+editorterminal.setOption("highlightActiveLine", false)
 editorterminal.setOption("showGutter", false);
 editorterminal.setReadOnly(true);
