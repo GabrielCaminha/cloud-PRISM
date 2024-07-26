@@ -1,10 +1,9 @@
-document.getElementById('modelForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const model = document.getElementById('model').value;
-    const properties = document.getElementById('properties').value;
-    const constants = document.getElementById('constants').value;
-    
+var darkmode = true
+function run(){
+    const model = editormodel.getValue()
+    const properties = editorprop.getValue()
+    const constants = document.getElementById("constants").value
+
     const data = {
         model: model,
         properties: properties,
@@ -20,22 +19,37 @@ document.getElementById('modelForm').addEventListener('submit', function(event) 
     })
     .then(response => response.json())
     .then(data => {
-        const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = `
-            <h2>PRISM Result</h2>
-            <p><strong>Header:</strong> ${data.result.header}</p>
-            <p><strong>Version:</strong> ${data.result.version}</p>
-            <p><strong>Date:</strong> ${data.result.date}</p>
-            <p><strong>Hostname:</strong> ${data.result.hostname}</p>
-            <p><strong>Memory Limits:</strong> ${data.result.memory_limits}</p>
-            <p><strong>Command Line:</strong> ${data.result.command_line}</p>
-            <h3>Model File</h3>
-            <pre>${data.result.model_file}</pre>
-            <h3>Properties File</h3>
-            <pre>${data.result.properties_file}</pre>
-            <h3>Simulation</h3>
-            <pre>${data.result.simulation}</pre>
-        `;
+        if (data.error) {
+            editorterminal.setValue('Error: ' + data.error);
+        } else {
+            editorterminal.setValue(data.result)
+        }
     })
     .catch(error => console.error('Error:', error));
-});
+}
+
+function downloadFile(model){
+    var text = model ? editormodel.getValue(): editorprop.getValue()
+    var filename = model ? "model.pm": "properties.pctl"
+    var blob = new Blob([text], {type: "text/plain;charset=utf-8"})
+    saveAs(blob, filename)
+}
+
+function changeMode(){
+    if(darkmode){
+        editormodel.setTheme("ace/theme/clouds")
+        editorprop.setTheme("ace/theme/clouds")
+        document.body.style.backgroundColor = "white"
+        document.getElementById("constantsLabel").style.color = "black"
+        document.getElementById("buttonmode").innerText = "Dark Mode"
+    }
+    else{
+        editormodel.setTheme("ace/theme/dracula");
+        editorprop.setTheme("ace/theme/dracula");
+        document.body.style.backgroundColor = "#282a36"
+        document.getElementById("constantsLabel").style.color = "white"
+        document.getElementById("buttonmode").innerText = "Light Mode"
+    }
+
+    darkmode = !darkmode
+}

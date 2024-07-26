@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, jsonify
-import test_run_prism
+import run_prism
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def process():
     properties = input_data.get("properties")
     constants = input_data.get("constants")
     
-    result = test_run_prism.run_prism(model, properties, constants)
+    result = run_prism.run_prism(model, properties, constants)
     
     return jsonify(result=result)
 

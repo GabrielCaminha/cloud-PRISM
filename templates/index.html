@@ -1,27 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Model Checker</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <h1>Model Checker</h1>
-    <form id="modelForm">
-        <label for="model">Model:</label><br>
-        <textarea id="model" name="model" rows="10" cols="50"></textarea><br>
-        
-        <label for="properties">Properties:</label><br>
-        <textarea id="properties" name="properties" rows="5" cols="50"></textarea><br>
-        
-        <label for="constants">Constants:</label><br>
-        <textarea id="constants" name="constants" rows="2" cols="50"></textarea><br>
-        
-        <button type="submit">Submit</button>
-    </form>
-    <div id="result"></div>
+<title>Cloud-Prism</title>
+<style type="text/css" media="screen">
+    #editor { 
+        height: 500px;
+        width: 49%;
+        border: 1px solid #44475a;
+    }
+    #editor2 {
+        height: 500px;
+        width: 49%;
+        border: 1px solid #44475a;
+    
+    }
 
-    <script src="/static/js/script.js"></script>
+    #editor3{
+        height: 500px;
+
+    }
+
+    #editores{
+        display: flex;
+        gap: 2%;
+
+    }
+
+</style>
+</head>
+<body style="background-color: #282a36;">
+<div>
+    <div id="editores">
+        <div id="editor">//Model here. e.g.:
+            
+            dtmc
+
+            module die
+            
+                // local state
+                s : [0..7] init 0;
+                // value of the die
+                d : [0..6] init 0;
+                
+                [] s=0 -> 0.5 : (s'=1) + 0.5 : (s'=2);
+                [] s=1 -> 0.5 : (s'=3) + 0.5 : (s'=4);
+                [] s=2 -> 0.5 : (s'=5) + 0.5 : (s'=6);
+                [] s=3 -> 0.5 : (s'=1) + 0.5 : (s'=7) & (d'=1);
+                [] s=4 -> 0.5 : (s'=7) & (d'=2) + 0.5 : (s'=7) & (d'=3);
+                [] s=5 -> 0.5 : (s'=7) & (d'=4) + 0.5 : (s'=7) & (d'=5);
+                [] s=6 -> 0.5 : (s'=2) + 0.5 : (s'=7) & (d'=6);
+                [] s=7 -> (s'=7);
+                
+            endmodule
+            </div>
+        <div id="editor2">//Properties Here. e.g.:
+            const int x;
+            P=? [ F s=7 & d=x ]
+        </div>
+    </div>
+    <div style="width:auto; display: flex; width: 100%;">
+        <label style="color:aliceblue" id="constantsLabel">Constants:</label>
+        <input id="constants" style="background-color: #f8f8f2; color: #282a36; text-align: left;">
+        <button style="background-color: #f8f8f2; color: #282a36; border-radius: 4px;" type="button" id="buttonsubmit" onclick="run()">Run</button>
+        <button style="background-color: #f8f8f2; color: #282a36; border-radius: 4px;" type="button" id="buttondwnlmodel" onclick="downloadFile(true)">Download Model</button>
+        <button style="background-color: #f8f8f2; color: #282a36; border-radius: 4px;" type="button" id="buttondwnlprops" onclick="downloadFile(false)">Download Properties</button>
+        <button style="background-color: #f8f8f2; color: #282a36; border-radius: 4px; margin-left: auto;" type="button" onclick="changeMode()" id="buttonmode">Light Mode</button> 
+    </div>
+</div>
+
+<div id="editor3"></div>
+    
+<script src="/static/js/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/FileSaver.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/editor.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/script.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
