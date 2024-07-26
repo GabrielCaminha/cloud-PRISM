@@ -28,6 +28,13 @@ function run(){
     .catch(error => console.error('Error:', error));
 }
 
+function downloadFile(model){
+    var text = model ? editormodel.getValue(): editorprop.getValue()
+    var filename = model ? "model.pm": "properties.pctl"
+    var blob = new Blob([text], {type: "text/plain;charset=utf-8"})
+    saveAs(blob, filename)
+}
+
 function changeMode(){
     if(darkmode){
         editormodel.setTheme("ace/theme/clouds")

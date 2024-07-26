@@ -31,7 +31,7 @@
 <body style="background-color: #282a36;">
 <div>
     <div id="editores">
-        <div id="editor">//Modelo Aqui. Ex:
+        <div id="editor">//Model here. e.g.:
             
             dtmc
 
@@ -53,15 +53,17 @@
                 
             endmodule
             </div>
-        <div id="editor2">//Propriedades aqui. Ex:
+        <div id="editor2">//Properties Here. e.g.:
             const int x;
             P=? [ F s=7 & d=x ]
         </div>
     </div>
     <div style="width:auto; display: flex; width: 100%;">
-        <label style="color:aliceblue" id="constantsLabel">Constantes:</label>
+        <label style="color:aliceblue" id="constantsLabel">Constants:</label>
         <input id="constants" style="background-color: #f8f8f2; color: #282a36; text-align: left;">
         <button style="background-color: #f8f8f2; color: #282a36; border-radius: 4px;" type="button" id="buttonsubmit" onclick="run()">Run</button>
+        <button style="background-color: #f8f8f2; color: #282a36; border-radius: 4px;" type="button" id="buttondwnlmodel" onclick="downloadFile(true)">Download Model</button>
+        <button style="background-color: #f8f8f2; color: #282a36; border-radius: 4px;" type="button" id="buttondwnlprops" onclick="downloadFile(false)">Download Properties</button>
         <button style="background-color: #f8f8f2; color: #282a36; border-radius: 4px; margin-left: auto;" type="button" onclick="changeMode()" id="buttonmode">Light Mode</button> 
     </div>
 </div>
@@ -69,6 +71,7 @@
 <div id="editor3"></div>
     
 <script src="/static/js/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/FileSaver.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/js/editor.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/js/script.js" type="text/javascript" charset="utf-8"></script>
 </body>
